@@ -3,7 +3,7 @@
 namespace app\models;
 use yii\db\ActiveRecord;
 
-class Users extends ActiveRecord {
+class User2 extends ActiveRecord {
 	
 }
 
