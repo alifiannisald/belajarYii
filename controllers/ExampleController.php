@@ -24,7 +24,7 @@ use app\models\UserForm;
 
             return $this->refresh();
         }
-        return $this->render('contact', [
+        return $this->render('kelola', [
             'model' => $model,
         ]);
         
