@@ -6,6 +6,8 @@ use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\Response;
 use yii\filters\VerbFilter;
+use app\models\non_movable_usage;
+use app\models\non_movable_asset;
 use app\models\LoginForm;
 use app\models\ContactForm;
 use app\models\UserForm;
@@ -32,6 +34,34 @@ use app\models\UserForm;
          return $this->render("kelola",[
             'message' => $message
          ]);
+      } 
+
+      public function actionHistory() {
+        $peminjaman =non_movable_usage::find()
+                    ->where(['id_user' => 'fina001'])
+                    ->all();;
+
+        $sql = 'SELECT a.title, b.name_item,  a.id_user, a.set_out, a.estimate, c.name FROM non_movable_usage a, non_movable_asset b, level_usage c WHERE a.id_non_movable = b.id_non_movable AND a.level = c.level';
+        $peminjaman4 = non_movable_usage::findBySql($sql)->all();
+        
+
+        $connection = Yii::$app->getDb();
+        $peminjaman3 = $connection->createCommand("
+            SELECT a.title, b.name_item,  a.id_user, a.set_out, a.estimate, c.name FROM non_movable_usage a, non_movable_asset b, level_usage c WHERE a.id_non_movable = b.id_non_movable AND a.level = c.level");
+
+        $peminjaman2 = $peminjaman3->queryAll();
+
+
+        $model = new ContactForm();
+        if ($model->load(Yii::$app->request->post()) && $model->contact(Yii::$app->params['adminEmail'])) {
+            Yii::$app->session->setFlash('contactFormSubmitted');
+
+            return $this->refresh();
+        }
+        
+         $message = "Bismillah Yii in progress";
+
+         return $this->render('history',['message' => $message, 'modelPinjam'=>$peminjaman2, 'model'=>$model]);
       } 
    
    } 
