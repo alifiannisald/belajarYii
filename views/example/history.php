@@ -63,7 +63,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 </td>
                                 
                         </tr>
-
+                        
                             <?php
                                 foreach($modelPinjam as $pinjam){
                                     echo '<tr>';
@@ -74,7 +74,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                     echo '<td>'.$pinjam['set_out']."</td>";
                                     echo '<td>'.$pinjam['estimate']."</td>";
                                     echo '<td>'.$pinjam['name']."</td>";
-                                    echo '<td>'.Html::button('Lihat', [ 'class' => 'btn btn-primary', 'onclick' => '(function ( $event ) { alert("Sabar ya~~`"); })();' ])."  ".Html::button('Batalkan', [ 'class' => 'btn btn-primary', 'onclick' => '(function ( $event ) { alert("SEMANGAAAT!!!!!!"); })();' ]).'</td>';
+                                    echo '<td>'.Html::button('Lihat', [ 'class' => 'btn btn-primary', 'onclick' => '(function ( $event ) { alert("Sabar ya~~`"); })();' ])."  ".Html::submitButton('Batalkan',[ 'name'=>'batalkan','onclick' => ['model/action'], 'value' => $pinjam['id_non_movable_usage'], 'class' => 'btn btn-default','data-pjax' => 0])."</td>";
                                     echo '</tr>';
                             }
                             //kalo dibatalin, konfirmasi dulu>kalo ya, level_usage di non_movable_usage nya jadi -1
